@@ -55,8 +55,14 @@ object PatternMatching {
    *        
    *    - anything else, the function result is "Some Scala class"
    */
-  def matchOnInputType(in: Any): String = {
-    error("fix me")
+  def matchOnInputType(in: Any): String = in match{
+    case x: String                      => "A string with length " + x.length()
+    case x: Integer if x > 0            => "A positive integer"
+    case Person(n, a)                   => "A person with name: " ++ n
+    case x: Seq[Any] if x.length > 10   => "Seq with more than 10 elements"
+    case v1::v2::tail                   => "first: " + v1 + ", second: " + v2 + ", rest: " + tail
+    case null                           => "A null value"
+    case default                        => "Some Scala class"
   }
 
   /**
@@ -64,7 +70,10 @@ object PatternMatching {
    *    otherwise return `None`
    */
   def older(p: Person): Option[String] = {
-    error("fix me")
+    if (p.age > 30)
+      Some(p.name)
+    else
+      None
   }
 }
 
